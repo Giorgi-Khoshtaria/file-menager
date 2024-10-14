@@ -2,6 +2,13 @@
 import os from "os";
 import readline from "readline";
 import { up, cd, list } from "./Commands/navigation.js";
+import {
+  getEOL,
+  getCPUs,
+  getHomeDir,
+  getUsername,
+  getArchitecture,
+} from "./Commands/osInfo.js";
 import { cat, add, rn, cp, mv, rm } from "./Commands/fileOperations.js"; // Ensure this import is correct
 import { stdin } from "node:process";
 import { getUserName } from "./utils.js";
@@ -96,6 +103,28 @@ const app = () => {
           console.log("Error: No file path provided for deletion.");
         }
         break;
+      case "os":
+        if (args.length > 0) {
+          switch (args[0]) {
+            case "--EOL":
+              getEOL();
+              break;
+            case "--cpus":
+              getCPUs();
+              break;
+            case "--homedir":
+              getHomeDir();
+              break;
+            case "--username":
+              getUsername();
+              break;
+            case "--architecture":
+              getArchitecture();
+              break;
+            default:
+              console.log(`Unknown OS command: ${args[0]}`);
+          }
+        }
       default:
         console.log(`Command not recognized: ${cmd}`);
     }

@@ -9,9 +9,15 @@ import {
   getUsername,
   getArchitecture,
 } from "./Commands/osInfo.js";
-import { cat, add, rn, cp, mv, rm } from "./Commands/fileOperations.js"; // Ensure this import is correct
+import { hash } from "./Commands/hashing.js";
+import { compress, decompress } from "./Commands/compression.js";
+import { cat, add, rn, cp, mv, rm } from "./Commands/fileOperations.js";
 import { stdin } from "node:process";
 import { getUserName } from "./utils.js";
+
+// this works if u start  like node index.js --username=yourname but dont work
+//  with npm run start -- --username=yourname  i dont know why and i cant fix this problem
+//   if you did it and fix please tell me,  this  is my dc g1org128
 
 const app = () => {
   stdin.setEncoding("utf-8");
@@ -125,6 +131,28 @@ const app = () => {
               console.log(`Unknown OS command: ${args[0]}`);
           }
         }
+      case "hash":
+        if (args.length) {
+          hash(args[0]); // Call the hash function with the file path
+        } else {
+          console.log("Error: No path provided for hash.");
+        }
+        break;
+      case "compress":
+        if (args.length === 2) {
+          compress(args[0], args[1]);
+        } else {
+          console.log("Error: Please provide the source file and destination.");
+        }
+        break;
+      case "decompress":
+        if (args.length === 2) {
+          decompress(args[0], args[1]);
+        } else {
+          console.log("Error: Please provide the source file and destination.");
+        }
+        break;
+
       default:
         console.log(`Command not recognized: ${cmd}`);
     }

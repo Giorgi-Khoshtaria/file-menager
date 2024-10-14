@@ -1,7 +1,8 @@
 // index.js
 import os from "os";
 import readline from "readline";
-import { up, cd, list } from "./Commands/navigation.js"; // Ensure this import is correct
+import { up, cd, list } from "./Commands/navigation.js";
+import { cat, add, rn, cp, mv, rm } from "./Commands/fileOperations.js"; // Ensure this import is correct
 import { stdin } from "node:process";
 import { getUserName } from "./utils.js";
 
@@ -46,6 +47,54 @@ const app = () => {
         break;
       case "ls":
         list();
+        break;
+      case "cat":
+        if (args.length) {
+          cat(args[0]);
+        } else {
+          console.log("Error: No file path provided for cat.");
+        }
+        break;
+      case "add":
+        if (args.length) {
+          add(args[0]);
+        } else {
+          console.log("Error: No file name provided to add.");
+        }
+        break;
+      case "rn":
+        if (args.length === 2) {
+          rn(args[0], args[1]);
+        } else {
+          console.log(
+            "Error: Provide source and destination file names for renaming."
+          );
+        }
+        break;
+      case "cp":
+        if (args.length === 2) {
+          cp(args[0], args[1]);
+        } else {
+          console.log(
+            "Error: Provide source and destination paths for copying."
+          );
+        }
+        break;
+      case "mv":
+        if (args.length === 2) {
+          mv(args[0], args[1]);
+        } else {
+          console.log(
+            "Error: Provide source and destination paths for moving."
+          );
+        }
+        break;
+      case "rm":
+        if (args.length) {
+          rm(args[0]);
+        } else {
+          console.log("Error: No file path provided for deletion.");
+        }
         break;
       default:
         console.log(`Command not recognized: ${cmd}`);
